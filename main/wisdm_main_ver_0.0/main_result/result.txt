@@ -1,0 +1,320 @@
+Loading Data Set...
+Data Schema------------------------------------------------------------
+root
+ |-- UID: integer (nullable = true)
+ |-- XAVG: integer (nullable = true)
+ |-- YAVG: double (nullable = true)
+ |-- ZAVG: double (nullable = true)
+ |-- XPEAK: string (nullable = true)
+ |-- YPEAK: string (nullable = true)
+ |-- ZPEAK: string (nullable = true)
+ |-- XABSDEV: double (nullable = true)
+ |-- YABSDEV: double (nullable = true)
+ |-- ZABSDEV: double (nullable = true)
+ |-- XSTDDEV: double (nullable = true)
+ |-- YSTDDEV: double (nullable = true)
+ |-- ZSTDDEV: double (nullable = true)
+ |-- RESULTANT: double (nullable = true)
+ |-- ACTIVITY: string (nullable = true)
+
+Sample Data------------------------------------------------------------
++---+----+----+----+-------+------+-------+-------+-------+-------+-------+-------+-------+---------+--------+
+|UID|XAVG|YAVG|ZAVG|  XPEAK| YPEAK|  ZPEAK|XABSDEV|YABSDEV|ZABSDEV|XSTDDEV|YSTDDEV|ZSTDDEV|RESULTANT|ACTIVITY|
++---+----+----+----+-------+------+-------+-------+-------+-------+-------+-------+-------+---------+--------+
+|  1|   0| 8.4|1.76|   2075|293.94|   1550|   3.29|   7.21|    4.0|   4.05|   8.17|   4.05|    11.96| Jogging|
+|  2|   0|7.62|1.43|   1525|269.44|1233.33|   4.23|   6.88|   4.05|   5.43|   8.19|   5.43|    12.05| Jogging|
+|  3|   0|7.77|2.39|1766.67|248.65|   1780|   4.18|   6.89|   4.07|   5.55|   8.19|   5.55|    11.99| Jogging|
+|  4|   0|9.57|0.49|   2525|709.09|   1380|   2.26|   4.13|   2.49|   2.87|   4.95|   2.87|    10.69| Walking|
+|  5|   0|9.76|0.51|   1075|  3300|   1775|   2.29|   3.94|   2.41|   3.08|   4.64|   3.08|     10.8| Walking|
++---+----+----+----+-------+------+-------+-------+-------+-------+-------+-------+-------+---------+--------+
+only showing top 5 rows
+
+Activity Count----------------------------------------------------------
++----------+-----+
+|  activity|count|
++----------+-----+
+|   Walking| 2081|
+|   Jogging| 1625|
+|  Upstairs|  632|
+|Downstairs|  528|
+|   Sitting|  306|
+|  Standing|  246|
++----------+-----+
+
+Summary---------------------------------------------------------------
+               0                   1                   2       3      4
+summary    count                mean              stddev     min    max
+UID         5418  284.39553340716134  177.20011360223182       1    728
+XAVG        5418                 0.0                 0.0       0      0
+YAVG        5418   7.076515319306007  3.7527377344848674  -10.58  11.91
+ZAVG        5418  0.3814802510151356  2.2001197346202512   -7.86   9.71
+XABSDEV     5418   4.960304540420831  2.7803355140862904     0.0  13.62
+YABSDEV     5418   4.040123661867859   2.295439017652926    0.01   9.56
+ZABSDEV     5418  2.7992340346991518  1.5722491365778544     0.0   8.62
+XSTDDEV     5418   6.144042081949055   3.198080525432228    0.08  14.97
+YSTDDEV     5418    5.10057216685126  2.6167255242603513    0.02  12.35
+ZSTDDEV     5418   6.144042081949055   3.198080525432228    0.08  14.97
+RESULTANT   5418  11.511443337024758  2.5429885985200844    0.03  19.32
+
+===========================MODELING PIPELINE==============================
+
+Model Pipeline Schema------------------------------------------------------------
+root
+ |-- label: double (nullable = false)
+ |-- features: vector (nullable = true)
+ |-- UID: integer (nullable = true)
+ |-- XAVG: integer (nullable = true)
+ |-- YAVG: double (nullable = true)
+ |-- ZAVG: double (nullable = true)
+ |-- XPEAK: string (nullable = true)
+ |-- YPEAK: string (nullable = true)
+ |-- ZPEAK: string (nullable = true)
+ |-- XABSDEV: double (nullable = true)
+ |-- YABSDEV: double (nullable = true)
+ |-- ZABSDEV: double (nullable = true)
+ |-- XSTDDEV: double (nullable = true)
+ |-- YSTDDEV: double (nullable = true)
+ |-- ZSTDDEV: double (nullable = true)
+ |-- RESULTANT: double (nullable = true)
+ |-- ACTIVITY: string (nullable = true)
+
+Sample Feature Data------------------------------------------------------------
+   label                                           features  UID  XAVG  YAVG  \
+0    1.0  (0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, ...    1     0  8.40   
+1    1.0  (0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, ...    2     0  7.62   
+2    1.0  (0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, ...    3     0  7.77   
+3    0.0  (0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, ...    4     0  9.57   
+4    0.0  (0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, ...    5     0  9.76   
+
+   ZAVG    XPEAK   YPEAK    ZPEAK  XABSDEV  YABSDEV  ZABSDEV  XSTDDEV  \
+0  1.76     2075  293.94     1550     3.29     7.21     4.00     4.05   
+1  1.43     1525  269.44  1233.33     4.23     6.88     4.05     5.43   
+2  2.39  1766.67  248.65     1780     4.18     6.89     4.07     5.55   
+3  0.49     2525  709.09     1380     2.26     4.13     2.49     2.87   
+4  0.51     1075    3300     1775     2.29     3.94     2.41     3.08   
+
+   YSTDDEV  ZSTDDEV  RESULTANT ACTIVITY  
+0     8.17     4.05      11.96  Jogging  
+1     8.19     5.43      12.05  Jogging  
+2     8.19     5.55      11.99  Jogging  
+3     4.95     2.87      10.69  Walking  
+4     4.64     3.08      10.80  Walking  
+
+===========================TRAINING AND TESTING==============================
+
+Training Dataset Count : 3793
+Test Dataset Count     : 1625
++-----+--------------------+---+----+-----+-----+-------+-------+-------+---------+--------+
+|label|            features|UID|XAVG| YAVG| ZAVG|XSTDDEV|YSTDDEV|ZSTDDEV|RESULTANT|ACTIVITY|
++-----+--------------------+---+----+-----+-----+-------+-------+-------+---------+--------+
+|  0.0|(3100,[0,934,2335...|669|   0| 0.16|-0.03|   1.99|  10.61|   1.99|     0.17| Walking|
+|  0.0|(3100,[0,934,2335...|357|   0| 0.05|  0.0|   3.85|   9.91|   3.85|     0.05| Walking|
+|  0.0|(3100,[0,936,2413...|328|   0| 2.48| 0.42|   9.97|   2.09|   9.97|    10.17| Walking|
+|  0.0|(3100,[0,939,2542...|156|   0|-0.68| 0.82|  11.36|   4.03|  11.36|    11.98| Walking|
+|  0.0|(3100,[0,945,2336...|147|   0|-0.93| 0.78|  11.51|   4.02|  11.51|    12.49| Walking|
++-----+--------------------+---+----+-----+-----+-------+-------+-------+---------+--------+
+only showing top 5 rows
+
++-----+--------------------+---+----+----+-----+-------+-------+-------+---------+--------+
+|label|            features|UID|XAVG|YAVG| ZAVG|XSTDDEV|YSTDDEV|ZSTDDEV|RESULTANT|ACTIVITY|
++-----+--------------------+---+----+----+-----+-------+-------+-------+---------+--------+
+|  0.0|(3100,[0,936,2527...|482|   0|1.45|-0.35|   5.73|   7.65|   5.73|      2.0| Walking|
+|  0.0|(3100,[0,939,2398...|135|   0|7.14| 0.99|   7.17|   3.92|   7.17|    10.92| Walking|
+|  0.0|(3100,[0,958,2560...|142|   0|4.11|  0.6|  10.36|   3.79|  10.36|    11.99| Walking|
+|  0.0|(3100,[0,996,2335...|728|   0|0.32|-0.62|   1.12|   4.83|   1.12|      0.7| Walking|
+|  0.0|(3100,[0,1027,243...|481|   0|8.36|-1.98|   5.54|   3.39|   5.54|    10.84| Walking|
++-----+--------------------+---+----+----+-----+-------+-------+-------+---------+--------+
+only showing top 5 rows
+
++-----+--------------------+---+
+|label|            features|UID|
++-----+--------------------+---+
+|  0.0|(3100,[0,936,2527...|482|
+|  0.0|(3100,[0,939,2398...|135|
+|  0.0|(3100,[0,958,2560...|142|
+|  0.0|(3100,[0,996,2335...|728|
+|  0.0|(3100,[0,1027,243...|481|
++-----+--------------------+---+
+only showing top 5 rows
+
+============================CLASSIFICATION AND EVALUATION============================
+LogisticRegression_446cab28d15c5195e1ba
+Classifier trained in 9.061 seconds
+Prediction made in 0.057 seconds
++---+------------------------------+-----+----------+
+|UID|                   probability|label|prediction|
++---+------------------------------+-----+----------+
+|464|[0.2973115710723226,0.01616...|  5.0|       5.0|
+|324|[0.2900963755247365,0.03860...|  5.0|       5.0|
+|437|[0.2843887738185165,0.04993...|  4.0|       5.0|
+|346|[0.25878013160273333,0.1272...|  5.0|       5.0|
+|187|[0.2539749903022398,0.08647...|  5.0|       5.0|
++---+------------------------------+-----+----------+
+only showing top 5 rows
+
+
+-----------Binary Classification Evaluator-------------
+
+Binary Classifier Raw Prediction ------------: 0.598788
+Binary Clasifier Area Under PR --------------: 0.801844
+Binary Clasifier Area Under ROC -------------: 0.598788
+
+-----------MultiClass Classification Evaluaton---------
+
+MultiClass F1 -------------------------------: 0.562962
+MultiClass Weighted Precision ---------------: 0.57678
+MultiClass Weighted Recall ------------------: 0.614769
+MultiClass Accuracy -------------------------: 0.614769
+
+----------------Regression Evaluator-------------------
+
+Root Mean Squared Error (RMSE) on test data -: 1.67626
+Mean Squared Error on test data -------------: 1.67626
+R^2 metric on test data ---------------------: -0.364186
+Mean Absolute Error on test data ------------: 0.932923
+
+------------------Additional Factors--------------------
+
+Total Count          = 1625
+Total Correct        = 999
+Total Wrong          = 626
+Wrong Ratio          = 0.385231
+Right Ratio          = 0.614769
+
+*********************************************************
+
+CrossValidatorModel_4726a9b2baad9479dd55 for Logistic Regression
+Classifier trained in 129.948 seconds
+Prediction made in 0.026 seconds
++---+------------------------------+-----+----------+
+|UID|                   probability|label|prediction|
++---+------------------------------+-----+----------+
+|645|[0.8009929238649194,0.04599...|  3.0|       0.0|
+| 73|[0.7699717096081964,0.03343...|  2.0|       0.0|
+| 29|[0.7584091080419854,0.08820...|  0.0|       0.0|
+| 51|[0.7524223496087018,0.07340...|  0.0|       0.0|
+|591|[0.7449479721082889,0.08257...|  0.0|       0.0|
++---+------------------------------+-----+----------+
+only showing top 5 rows
+
+
+-----------Binary Classification Evaluator-------------
+
+Binary Classifier Raw Prediction ------------: 0.635492
+Binary Clasifier Area Under PR --------------: 0.819317
+Binary Clasifier Area Under ROC -------------: 0.635492
+
+-----------MultiClass Classification Evaluaton---------
+
+MultiClass F1 -------------------------------: 0.635181
+MultiClass Weighted Precision ---------------: 0.690477
+MultiClass Weighted Recall ------------------: 0.714462
+MultiClass Accuracy -------------------------: 0.714462
+
+----------------Regression Evaluator-------------------
+
+Root Mean Squared Error (RMSE) on test data -: 1.41747
+Mean Squared Error on test data -------------: 1.41747
+R^2 metric on test data ---------------------: 0.0245141
+Mean Absolute Error on test data ------------: 0.692308
+
+------------------Additional Factors--------------------
+
+Total Count          = 1625
+Total Correct        = 1161
+Total Wrong          = 464
+Wrong Ratio          = 0.285538
+Right Ratio          = 0.714462
+
+*********************************************************
+
+DecisionTreeClassificationModel (uid=DecisionTreeClassifier_4b75bf62cea372098255) of depth 3 with 15 nodes
+Classifier trained in 12.189 seconds
+Prediction made in 0.074 seconds
++---+-------------------------+-----+----------+
+|UID|              probability|label|prediction|
++---+-------------------------+-----+----------+
+|492|[1.0,0.0,0.0,0.0,0.0,0.0]|  0.0|       0.0|
+|518|[1.0,0.0,0.0,0.0,0.0,0.0]|  0.0|       0.0|
+|495|[1.0,0.0,0.0,0.0,0.0,0.0]|  0.0|       0.0|
+|511|[1.0,0.0,0.0,0.0,0.0,0.0]|  0.0|       0.0|
+|536|[1.0,0.0,0.0,0.0,0.0,0.0]|  0.0|       0.0|
++---+-------------------------+-----+----------+
+only showing top 5 rows
+
+
+-----------Binary Classification Evaluator-------------
+
+Binary Classifier Raw Prediction ------------: 0.685412
+Binary Clasifier Area Under PR --------------: 0.861856
+Binary Clasifier Area Under ROC -------------: 0.685412
+
+-----------MultiClass Classification Evaluaton---------
+
+MultiClass F1 -------------------------------: 0.679556
+MultiClass Weighted Precision ---------------: 0.644884
+MultiClass Weighted Recall ------------------: 0.730462
+MultiClass Accuracy -------------------------: 0.730462
+
+----------------Regression Evaluator-------------------
+
+Root Mean Squared Error (RMSE) on test data -: 0.977595
+Mean Squared Error on test data -------------: 0.977595
+R^2 metric on test data ---------------------: 0.536009
+Mean Absolute Error on test data ------------: 0.464615
+
+------------------Additional Factors--------------------
+
+Total Count          = 1625
+Total Correct        = 1187
+Total Wrong          = 438
+Wrong Ratio          = 0.269538
+Right Ratio          = 0.730462
+
+*********************************************************
+
+RandomForestClassificationModel (uid=RandomForestClassifier_421a8a2632c4f9a8c867) with 100 trees
+Classifier trained in 20.472 seconds
+Prediction made in 0.149 seconds
++---+------------------------------+-----+----------+
+|UID|                   probability|label|prediction|
++---+------------------------------+-----+----------+
+|645|[0.4731633507191634,0.21876...|  3.0|       0.0|
+|294|[0.4657064611027598,0.22062...|  0.0|       0.0|
+|206|[0.459656036295473,0.223688...|  0.0|       0.0|
+| 38|[0.45677192456229554,0.2205...|  0.0|       0.0|
+|241|[0.4561546023253171,0.22472...|  0.0|       0.0|
++---+------------------------------+-----+----------+
+only showing top 5 rows
+
+
+-----------Binary Classification Evaluator-------------
+
+Binary Classifier Raw Prediction ------------: 0.716613
+Binary Clasifier Area Under PR --------------: 0.849178
+Binary Clasifier Area Under ROC -------------: 0.716613
+
+-----------MultiClass Classification Evaluaton---------
+
+MultiClass F1 -------------------------------: 0.522762
+MultiClass Weighted Precision ---------------: 0.469737
+MultiClass Weighted Recall ------------------: 0.632
+MultiClass Accuracy -------------------------: 0.632
+
+----------------Regression Evaluator-------------------
+
+Root Mean Squared Error (RMSE) on test data -: 1.87518
+Mean Squared Error on test data -------------: 1.87518
+R^2 metric on test data ---------------------: -0.707175
+Mean Absolute Error on test data ------------: 1.05108
+
+------------------Additional Factors--------------------
+
+Total Count          = 1625
+Total Correct        = 1027
+Total Wrong          = 598
+Wrong Ratio          = 0.368
+Right Ratio          = 0.632
+
+*********************************************************
+
