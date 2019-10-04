@@ -1,2 +1,0 @@
-Classifier,Count Total,Correct,Wrong,Ratio Wrong,Ratio Correct,F1 Score,Cross Validation Training Time,Cross Validation Testing Time,Cross Fold Accuracy
-LogisticRegression_446cab28d15c5195e1ba,1625,1161,464,0.2855384615384615,0.7144615384615385,0.6351806376768607,129.948,0.026,0.7144615384615385
